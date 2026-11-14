@@ -101,7 +101,7 @@ Provides text processing operations.
 ### Step 1: Clone the Repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/bandishanmukhapriya16-coder/multi-tool-mcp-assistant./
 ```
 
 ### Step 2: Open the Project Folder
