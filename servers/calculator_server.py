@@ -1,7 +1,13 @@
 
 from mcp.server.fastmcp import FastMCP
+import logging
+import sys
 
-# Create calculator MCP server
+logging.basicConfig(
+    level=logging.INFO,
+    stream=sys.stderr
+)
+
 mcp = FastMCP("Calculator Server")
 
 
@@ -13,7 +19,7 @@ def add(a: float, b: float) -> float:
 
 @mcp.tool()
 def subtract(a: float, b: float) -> float:
-    """Subtract the second number from the first."""
+    """Subtract two numbers."""
     return a - b
 
 
@@ -25,11 +31,11 @@ def multiply(a: float, b: float) -> float:
 
 @mcp.tool()
 def divide(a: float, b: float) -> float:
-    """Divide the first number by the second."""
+    """Divide two numbers."""
     if b == 0:
         raise ValueError("Cannot divide by zero")
     return a / b
 
 
 if __name__ == "__main__":
-    mcp.run()
+    mcp.run(transport="stdio")

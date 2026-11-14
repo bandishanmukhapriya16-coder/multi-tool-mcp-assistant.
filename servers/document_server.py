@@ -1,16 +1,20 @@
-
 from mcp.server.fastmcp import FastMCP
 from pathlib import Path
+import logging
+import sys
+
+logging.basicConfig(
+    level=logging.INFO,
+    stream=sys.stderr
+)
 
 mcp = FastMCP("Document Search Server")
 
-# Locate the sample document
 DOCUMENT_PATH = (
     Path(__file__).resolve().parent.parent
     / "documents"
     / "sample.txt"
 )
-
 
 @mcp.tool()
 def search_docs(keyword: str) -> str:
@@ -20,7 +24,9 @@ def search_docs(keyword: str) -> str:
         raise ValueError("Keyword cannot be empty")
 
     if not DOCUMENT_PATH.exists():
-        raise FileNotFoundError("Sample document not found")
+        raise FileNotFoundError(
+            f"Sample document not found: {DOCUMENT_PATH}"
+        )
 
     content = DOCUMENT_PATH.read_text(encoding="utf-8")
 
@@ -36,4 +42,4 @@ def search_docs(keyword: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run()
+    mcp.run(transport="stdio")
